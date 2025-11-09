@@ -11,7 +11,7 @@
 ---
 
 ## 2. Структура бази даних
-- **Кількість сутностей:** 20+  
+- **Кількість сутностей:** 15+  
 - **Основні таблиці:**  
   `Property`, `Building`, `Unit`, `Tenant`, `Lease`, `Invoice`, `Payment`,  
   `ServiceRequest`, `WorkOrder`, `Meter`, `MeterReading`, `Owner`,  
@@ -35,8 +35,7 @@
 ---
 
 ## 3. Вимоги до даних
-✅ Виконано:
-- Понад **15 сутностей**
+Виконано:
 - **Soft delete:** `Tenant`, `Lease`, `Unit`, `Vendor`, `WorkOrder`
 - **Аудит змін:** поля `CreatedAt`, `CreatedBy`, `UpdatedAt`, `UpdatedBy`
 - **Журнал змін:** таблиця `AuditLog`
