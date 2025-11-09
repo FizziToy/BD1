@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BDDomain.Models.Tenant>
+
+@{
+    ViewData["Title"] = "Активні орендарі";
+}
+
+<h2 class="text-center mt-4 mb-4">Активні орендарі</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-warning text-center mt-4">
+        Немає активних орендарів.
+    </div>
+}
+else
+{
+    <table class="table table-hover table-striped align-middle shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Ім’я</th>
+                <th scope="col">Телефон</th>
+                <th scope="col">Email</th>
+                <th scope="col">Дата створення</th>
+                <th scope="col">Ким створено</th>
+                <th scope="col">Дата оновлення</th>
+                <th scope="col">Ким оновлено</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model)
+            {
+                <tr>
+                    <td>@t.TenantId</td>
+                    <td>@t.FullName</td>
+                    <td>@t.Phone</td>
+                    <td>@t.Email</td>
+                    <td>@(t.CreatedAt == default ? "-" : t.CreatedAt.ToString("yyyy-MM-dd HH:mm"))</td>
+                    <td>@t.CreatedBy</td>
+                    <td>@(t.UpdatedAt == default ? "-" : t.UpdatedAt.ToString("yyyy-MM-dd HH:mm"))</td>
+                    <td>@t.UpdatedBy</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="text-center mt-4">
+    <a href="/" class="btn btn-secondary">Повернутись на головну</a>
+    <a href="/Tenant/Add" class="btn btn-success ms-2">Додати орендаря</a>
+</div>
