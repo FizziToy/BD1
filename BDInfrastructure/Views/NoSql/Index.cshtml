@@ -1,0 +1,37 @@
+﻿@model IEnumerable<BDInfrastructure.Models.ServiceRequestDocument>
+<h2>Заявки (MongoDB)</h2>
+<a class="btn btn-success" href="/NoSql/AddTest">Додати тестовий документ</a>
+
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>RequestId</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>CreatedAt</th>
+            <th>Історія</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.RequestId</td>
+                <td>@r.Title</td>
+                <td>@r.Status</td>
+                <td>@r.CreatedAt</td>
+                <td>
+                    @if (r.History != null)
+                    {
+                        <ul>
+                            @foreach (var item in r.History)
+                            {
+                                <li>@item</li>
+                            }
+                        </ul>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

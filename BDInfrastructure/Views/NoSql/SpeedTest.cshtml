@@ -1,0 +1,50 @@
+﻿@model BDInfrastructure.Models.SpeedTestResult
+
+@{
+    ViewData["Title"] = "Тест швидкодії SQL vs NoSQL";
+}
+
+<h2> Результати тесту швидкодії (SQL vs NoSQL)</h2>
+
+<p>
+    Було виконано по @Model.Runs циклів зчитування з кожної бази.
+    <br />
+    Кількість знайдених записів у SQL: @Model.SqlCount, у MongoDB: @Model.MongoCount
+</p>
+<hr />
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>База даних</th>
+            <th>Середній час зчитування (мс)</th>
+            <th>Висновок</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>SQL Server (Реляційна, з JOIN)</strong></td>
+            <td><strong>@Model.SqlTimeMs.ToString("F4")</strong></td>
+            <td>Зчитування складного об'єкта вимагає виконання збереженої процедури та агрегації/конвертації історії.</td>
+        </tr>
+        <tr>
+            <td><strong>MongoDB (Документна)</strong></td>
+            <td><strong>@Model.MongoTimeMs.ToString("F4")</strong></td>
+            <td>Зчитування складного об'єкта з одного документа.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3 class="mt-4">Порівняння</h3>
+@{
+    var faster = Model.SqlTimeMs < Model.MongoTimeMs ? "SQL Server" : "MongoDB";
+    var slower = Model.SqlTimeMs < Model.MongoTimeMs ? "MongoDB" : "SQL Server";
+    var diff = Math.Abs(Model.SqlTimeMs - Model.MongoTimeMs);
+}
+<div class="alert alert-@(diff > 1.0 ? "success" : "info")">
+    База даних <strong>@faster</strong> виявилася швидшою за <strong>@slower</strong> на <strong>@diff.ToString("F4")</strong> мс.
+    <br />
+    <em>Зазвичай для зчитування комплексних об'єктів (з історією вбудованою в документ) очікується перевага MongoDB.</em>
+</div>
+
+<a class="btn btn-primary" href="/NoSql">Повернутися до заявок</a>

@@ -1,5 +1,6 @@
 using BDDomain.Models;
 using BDDomain.Repositories;
+using BDInfrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,9 @@ builder.Services.AddDbContext<RealEstateDbContext>(options =>
 builder.Services.AddScoped<UnitOfWork>();
 builder.Services.AddScoped<TenantRepository>();
 builder.Services.AddScoped<LeaseRepository>();
-
+builder.Services.AddSingleton<MongoServiceRequestRepository>();
+builder.Services.AddTransient<SqlServiceRequestRepository>();
+builder.Services.AddTransient<SqlTenantRepository>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
